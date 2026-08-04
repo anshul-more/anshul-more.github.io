@@ -807,3 +807,252 @@ transform:translateY(0);
     z-index:2;
 
 }
+/* ===========================
+   PREMIUM BACKGROUND
+=========================== */
+
+body{
+    font-family: 'Poppins', sans-serif;
+    color:#1f2937;
+
+    background:
+    radial-gradient(circle at top left,#dbeafe 0%,transparent 30%),
+    radial-gradient(circle at top right,#bfdbfe 0%,transparent 35%),
+    radial-gradient(circle at bottom left,#e0f2fe 0%,transparent 35%),
+    linear-gradient(135deg,#f8fbff 0%,#eef5ff 45%,#ffffff 100%);
+
+    background-attachment:fixed;
+}
+
+
+/* ===========================
+   HERO
+=========================== */
+
+.hero{
+
+    position:relative;
+
+    min-height:90vh;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:90px 8%;
+
+    border-radius:30px;
+
+    margin:30px;
+
+    background:rgba(255,255,255,.55);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.7);
+
+    box-shadow:
+    0 25px 60px rgba(37,99,235,.12);
+
+}
+
+
+
+/* Blue glowing shapes */
+
+.hero::before{
+
+content:"";
+
+position:absolute;
+
+width:350px;
+
+height:350px;
+
+border-radius:50%;
+
+background:#60a5fa;
+
+top:-120px;
+
+right:-120px;
+
+filter:blur(100px);
+
+opacity:.30;
+
+}
+
+
+.hero::after{
+
+content:"";
+
+position:absolute;
+
+width:250px;
+
+height:250px;
+
+border-radius:50%;
+
+background:#2563eb;
+
+bottom:-100px;
+
+left:-100px;
+
+filter:blur(90px);
+
+opacity:.18;
+
+}
+
+
+
+/* ===========================
+   NAVBAR
+=========================== */
+
+header{
+
+position:sticky;
+
+top:15px;
+
+width:94%;
+
+margin:auto;
+
+background:rgba(255,255,255,.70);
+
+backdrop-filter:blur(20px);
+
+border-radius:18px;
+
+border:1px solid rgba(255,255,255,.7);
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+
+
+/* ===========================
+   SECTIONS
+=========================== */
+
+section:not(.hero){
+
+background:rgba(255,255,255,.72);
+
+backdrop-filter:blur(18px);
+
+margin:35px;
+
+padding:60px;
+
+border-radius:25px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+transition:.35s;
+
+}
+
+
+
+section:not(.hero):hover{
+
+transform:translateY(-6px);
+
+box-shadow:0 20px 45px rgba(37,99,235,.12);
+
+}
+
+
+
+/* ===========================
+   HEADING
+=========================== */
+
+h2{
+
+position:relative;
+
+display:inline-block;
+
+}
+
+
+h2::after{
+
+content:"";
+
+position:absolute;
+
+left:0;
+
+bottom:-8px;
+
+width:65%;
+
+height:4px;
+
+background:linear-gradient(to right,#2563eb,#60a5fa);
+
+border-radius:10px;
+
+}
+
+
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.resume-btn{
+
+background:linear-gradient(135deg,#111,#333);
+
+}
+
+
+.linkedin-btn{
+
+background:linear-gradient(135deg,#2563eb,#3b82f6);
+
+}
+
+
+
+/* ===========================
+   PROJECT CARDS
+=========================== */
+
+.project-card{
+
+background:white;
+
+border-radius:18px;
+
+overflow:hidden;
+
+transition:.35s;
+
+box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+}
+
+
+
+.project-card:hover{
+
+transform:translateY(-12px);
+
+box-shadow:0 20px 45px rgba(37,99,235,.20);
+
+}
