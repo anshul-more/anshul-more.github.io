@@ -409,3 +409,43 @@ nav{
     background: rgba(8,15,35,0.95);
     box-shadow: 0 15px 40px rgba(0,0,0,0.35);
 }
+/* ===========================
+   SKILLS (OLD STYLE)
+=========================== */
+
+#skills ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+
+    list-style: none;
+    padding: 0;
+    margin-top: 35px;
+}
+
+#skills ul li{
+    background: rgba(255,255,255,0.08);
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    backdrop-filter: blur(15px);
+
+    color: white;
+
+    padding: 14px 26px;
+
+    border-radius: 50px;
+
+    font-weight: 500;
+
+    transition: 0.3s;
+}
+
+#skills ul li:hover{
+    transform: translateY(-6px);
+
+    background: #2563eb;
+
+    box-shadow: 0 15px 30px rgba(37,99,235,.35);
+}
