@@ -1,130 +1,244 @@
+// ==============================
+// Typing Animation
+// ==============================
+
 const words = [
-"AI Data Analytics Intern",
-"SEO Intern",
-"Marketing Graduate",
-"MBA Aspirant",
-"Business Analytics Enthusiast"
+    "Marketing Graduate",
+    "Business Analytics Enthusiast",
+    "AI Data Analytics Intern",
+    "SEO Intern",
+    "MBA Aspirant"
 ];
 
-let i=0;
-let j=0;
-let current="";
-let isDeleting=false;
+const typing = document.getElementById("typing");
 
-function type(){
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
 
-current=words[i];
+function typeEffect() {
 
-if(isDeleting){
+    if (!typing) return;
 
-document.getElementById("typing").textContent=current.substring(0,j--);
+    const currentWord = words[wordIndex];
 
-if(j<0){
+    if (!deleting) {
 
-isDeleting=false;
-i++;
+        typing.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
 
-if(i==words.length)
-i=0;
+        if (charIndex === currentWord.length) {
+
+            deleting = true;
+            setTimeout(typeEffect, 1500);
+            return;
+
+        }
+
+    } else {
+
+        typing.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+
+            deleting = false;
+            wordIndex++;
+
+            if (wordIndex >= words.length)
+                wordIndex = 0;
+
+        }
+
+    }
+
+    setTimeout(typeEffect, deleting ? 60 : 120);
 
 }
 
-}
+typeEffect();
 
-else{
 
-document.getElementById("typing").textContent=current.substring(0,j++);
-
-if(j>current.length){
-
-isDeleting=true;
-
-setTimeout(type,1000);
-
-return;
-
-}
-
-}
-
-setTimeout(type,isDeleting?60:120);
-
-}
-
-type();
 // ==============================
 // Counter Animation
 // ==============================
 
 const counters = document.querySelectorAll(".counter");
 
-let counterStarted = false;
-
-function animateCounters() {
-
-    if (counterStarted) return;
-
-    counterStarted = true;
-
-    counters.forEach(counter => {
-
-        const target = parseInt(counter.dataset.target);
-
-        let current = 0;
-
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16);
-
-        function update() {
-
-            current += increment;
-
-            if (current < target) {
-
-                counter.textContent = Math.floor(current);
-
-                requestAnimationFrame(update);
-
-            } else {
-
-                if (target >= 1000) {
-
-                    counter.textContent = "1K+";
-
-                } else {
-
-                    counter.textContent = target + "+";
-
-                }
-
-            }
-
-        }
-
-        update();
-
-    });
-
-}
-
-// Start animation when Hero is visible
-
-const hero = document.querySelector(".hero");
-
-const observer = new IntersectionObserver((entries) => {
+const observer = new IntersectionObserver(entries => {
 
     entries.forEach(entry => {
 
         if (entry.isIntersecting) {
 
-            animateCounters();
+            counters.forEach(counter => {
+
+                if (counter.classList.contains("done"))
+                    return;
+
+                counter.classList.add("done");
+
+                const target = +counter.dataset.target;
+
+                let current = 0;
+
+                const increment = target / 80;
+
+                function updateCounter() {
+
+                    current += increment;
+
+                    if (current < target) {
+
+                        counter.innerText = Math.floor(current);
+
+                        requestAnimationFrame(updateCounter);
+
+                    } else {
+
+                        if (target >= 1000) {
+
+                            counter.innerText = "1K+";
+
+                        } else {
+
+                            counter.innerText = target + "+";
+
+                        }
+
+                    }
+
+                }
+
+                updateCounter();
+
+            });
 
         }
 
     });
 
 }, {
-    threshold: 0.4
+
+    threshold: 0.5
+
 });
 
-observer.observe(hero);
+const heroSection = document.querySelector(".hero");
+
+if (heroSection)
+    observer.observe(heroSection);
+
+
+// ==============================
+// Scroll Reveal Animation
+// ==============================
+
+const revealElements = document.querySelectorAll(
+    "section,.project-card,.timeline-item,.skill,.education-card"
+);
+
+const revealObserver = new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            entry.target.classList.add("show");
+
+        }
+
+    });
+
+}, {
+
+    threshold: 0.15
+
+});
+
+revealElements.forEach(el => {
+
+    revealObserver.observe(el);
+
+});
+
+
+// ==============================
+// Smooth Scroll
+// ==============================
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+
+    anchor.addEventListener("click", function (e) {
+
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute("href"))
+            .scrollIntoView({
+
+                behavior: "smooth"
+
+            });
+
+    });
+
+});
+
+
+// ==============================
+// Navbar Shadow
+// ==============================
+
+window.addEventListener("scroll", () => {
+
+    const header = document.querySelector("header");
+
+    if (window.scrollY > 50) {
+
+        header.classList.add("sticky");
+
+    } else {
+
+        header.classList.remove("sticky");
+
+    }
+
+});
+
+
+// ==============================
+// Active Navbar Link
+// ==============================
+
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".nav-links a");
+
+window.addEventListener("scroll", () => {
+
+    let current = "";
+
+    sections.forEach(section => {
+
+        const sectionTop = section.offsetTop - 150;
+
+        if (pageYOffset >= sectionTop) {
+
+            current = section.getAttribute("id");
+
+        }
+
+    });
+
+    navLinks.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === "#" + current) {
+
+            link.classList.add("active");
+
+        }
+
+    });
+
+});
