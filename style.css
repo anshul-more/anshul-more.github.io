@@ -491,3 +491,46 @@ nav{
 
     box-shadow: 0 15px 30px rgba(37,99,235,.35);
 }
+/* Skills & Certification Cards */
+
+.skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    margin-top:35px;
+}
+
+.skill-card{
+    background:rgba(255,255,255,.8);
+    backdrop-filter:blur(15px);
+    padding:35px 20px;
+    border-radius:20px;
+    text-align:center;
+    transition:.35s;
+    box-shadow:0 15px 35px rgba(37,99,235,.08);
+    border:1px solid rgba(37,99,235,.12);
+}
+
+.skill-card:hover{
+    transform:translateY(-10px);
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+    color:white;
+    box-shadow:0 20px 45px rgba(37,99,235,.25);
+}
+
+.skill-card i{
+    font-size:42px;
+    color:#2563eb;
+    margin-bottom:18px;
+    transition:.35s;
+}
+
+.skill-card:hover i{
+    color:white;
+    transform:scale(1.15);
+}
+
+.skill-card h3{
+    font-size:18px;
+    font-weight:600;
+}
