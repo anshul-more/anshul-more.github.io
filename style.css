@@ -1060,22 +1060,26 @@ box-shadow:0 20px 45px rgba(37,99,235,.20);
    PROFILE IMAGE
 =========================== */
 
+/* Profile Image */
+
 .profile-image{
-    width:280px;
-    height:280px;
+    width:220px;
+    height:220px;
+
     border-radius:50%;
     overflow:hidden;
 
     flex-shrink:0;
 
-    border:6px solid rgba(255,255,255,.9);
+    border:5px solid white;
 
-    background:white;
-
-    box-shadow:
-        0 20px 50px rgba(37,99,235,.25);
+    box-shadow:0 15px 40px rgba(37,99,235,.25);
 
     animation:floating 4s ease-in-out infinite;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 .profile-image img{
@@ -1083,16 +1087,4 @@ box-shadow:0 20px 45px rgba(37,99,235,.20);
     height:100%;
     object-fit:cover;
     display:block;
-}
-
-@keyframes floating{
-    0%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-12px);
-    }
-    100%{
-        transform:translateY(0);
-    }
 }
