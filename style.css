@@ -571,57 +571,35 @@ nav a:hover{
     color:white;
 }
 
+/* ===== Navbar Correct Alignment ===== */
 
-/* ===== Navbar Final Fix ===== */
-
-header{
-    position: sticky;
-    top: 15px;
-    width: 94%;
-    margin: 15px auto;
-    z-index: 1000;
-}
-
-
-nav{
-    width:100%;
+header nav{
     display:flex;
-    align-items:center;
+    flex-direction:row;
     justify-content:space-between;
+    align-items:center;
+    width:100%;
     padding:18px 35px;
     box-sizing:border-box;
 }
 
 
-nav h2{
+header nav h2{
     margin:0;
-    white-space:nowrap;
 }
 
 
-nav div{
+.nav-links{
     display:flex;
+    flex-direction:row;
     align-items:center;
     gap:30px;
     margin-left:auto;
 }
 
 
-nav a{
-    color:white;
+.nav-links a{
     text-decoration:none;
+    color:white;
     font-weight:600;
-}
-nav{
-display:flex;
-align-items:center;
-justify-content:space-between;
-width:100%;
-padding:18px 35px;
-}
-
-.nav-links{
-display:flex;
-gap:30px;
-align-items:center;
 }
