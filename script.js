@@ -52,3 +52,79 @@ setTimeout(type,isDeleting?60:120);
 }
 
 type();
+// ==============================
+// Counter Animation
+// ==============================
+
+const counters = document.querySelectorAll(".counter");
+
+let counterStarted = false;
+
+function animateCounters() {
+
+    if (counterStarted) return;
+
+    counterStarted = true;
+
+    counters.forEach(counter => {
+
+        const target = parseInt(counter.dataset.target);
+
+        let current = 0;
+
+        const duration = 2000; // 2 seconds
+        const increment = target / (duration / 16);
+
+        function update() {
+
+            current += increment;
+
+            if (current < target) {
+
+                counter.textContent = Math.floor(current);
+
+                requestAnimationFrame(update);
+
+            } else {
+
+                if (target >= 1000) {
+
+                    counter.textContent = "1K+";
+
+                } else {
+
+                    counter.textContent = target + "+";
+
+                }
+
+            }
+
+        }
+
+        update();
+
+    });
+
+}
+
+// Start animation when Hero is visible
+
+const hero = document.querySelector(".hero");
+
+const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            animateCounters();
+
+        }
+
+    });
+
+}, {
+    threshold: 0.4
+});
+
+observer.observe(hero);
