@@ -1,244 +1,131 @@
-// ==============================
+// ===========================
 // Typing Animation
-// ==============================
-
-const words = [
-    "Marketing Graduate",
-    "Business Analytics Enthusiast",
-    "AI Data Analytics Intern",
-    "SEO Intern",
-    "MBA Aspirant"
-];
+// ===========================
 
 const typing = document.getElementById("typing");
 
-let wordIndex = 0;
-let charIndex = 0;
+if (typing) {
+
+const words = [
+"AI Data Analytics Intern",
+"SEO Intern",
+"Marketing Graduate",
+"MBA Aspirant",
+"Business Analytics Enthusiast"
+];
+
+let i = 0;
+let j = 0;
 let deleting = false;
 
-function typeEffect() {
+function typeEffect(){
 
-    if (!typing) return;
+    const word = words[i];
 
-    const currentWord = words[wordIndex];
+    if(!deleting){
 
-    if (!deleting) {
-
-        typing.textContent = currentWord.substring(0, charIndex + 1);
-        charIndex++;
-
-        if (charIndex === currentWord.length) {
+        typing.textContent = word.substring(0,j++);
+        
+        if(j > word.length){
 
             deleting = true;
-            setTimeout(typeEffect, 1500);
-            return;
 
+            setTimeout(typeEffect,1200);
+
+            return;
         }
 
-    } else {
+    }else{
 
-        typing.textContent = currentWord.substring(0, charIndex - 1);
-        charIndex--;
+        typing.textContent = word.substring(0,j--);
 
-        if (charIndex === 0) {
+        if(j < 0){
 
             deleting = false;
-            wordIndex++;
 
-            if (wordIndex >= words.length)
-                wordIndex = 0;
+            i++;
 
+            if(i >= words.length)
+                i = 0;
         }
 
     }
 
-    setTimeout(typeEffect, deleting ? 60 : 120);
+    setTimeout(typeEffect,deleting ? 50 : 100);
 
 }
 
 typeEffect();
 
+}
 
-// ==============================
+
+// ===========================
 // Counter Animation
-// ==============================
+// ===========================
 
 const counters = document.querySelectorAll(".counter");
 
-const observer = new IntersectionObserver(entries => {
+function startCounter(counter){
 
-    entries.forEach(entry => {
+    const target = Number(counter.dataset.target);
 
-        if (entry.isIntersecting) {
+    let current = 0;
 
-            counters.forEach(counter => {
+    const step = target / 80;
 
-                if (counter.classList.contains("done"))
-                    return;
+    function update(){
 
-                counter.classList.add("done");
+        current += step;
 
-                const target = +counter.dataset.target;
+        if(current < target){
 
-                let current = 0;
+            counter.innerHTML = Math.floor(current);
 
-                const increment = target / 80;
+            requestAnimationFrame(update);
 
-                function updateCounter() {
+        }else{
 
-                    current += increment;
+            if(target >= 1000){
 
-                    if (current < target) {
+                counter.innerHTML = "1K+";
 
-                        counter.innerText = Math.floor(current);
+            }else{
 
-                        requestAnimationFrame(updateCounter);
+                counter.innerHTML = target + "+";
 
-                    } else {
-
-                        if (target >= 1000) {
-
-                            counter.innerText = "1K+";
-
-                        } else {
-
-                            counter.innerText = target + "+";
-
-                        }
-
-                    }
-
-                }
-
-                updateCounter();
-
-            });
+            }
 
         }
-
-    });
-
-}, {
-
-    threshold: 0.5
-
-});
-
-const heroSection = document.querySelector(".hero");
-
-if (heroSection)
-    observer.observe(heroSection);
-
-
-// ==============================
-// Scroll Reveal Animation
-// ==============================
-
-const revealElements = document.querySelectorAll(
-    "section,.project-card,.timeline-item,.skill,.education-card"
-);
-
-const revealObserver = new IntersectionObserver(entries => {
-
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-            entry.target.classList.add("show");
-
-        }
-
-    });
-
-}, {
-
-    threshold: 0.15
-
-});
-
-revealElements.forEach(el => {
-
-    revealObserver.observe(el);
-
-});
-
-
-// ==============================
-// Smooth Scroll
-// ==============================
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
-    anchor.addEventListener("click", function (e) {
-
-        e.preventDefault();
-
-        document.querySelector(this.getAttribute("href"))
-            .scrollIntoView({
-
-                behavior: "smooth"
-
-            });
-
-    });
-
-});
-
-
-// ==============================
-// Navbar Shadow
-// ==============================
-
-window.addEventListener("scroll", () => {
-
-    const header = document.querySelector("header");
-
-    if (window.scrollY > 50) {
-
-        header.classList.add("sticky");
-
-    } else {
-
-        header.classList.remove("sticky");
 
     }
 
-});
+    update();
 
+}
 
-// ==============================
-// Active Navbar Link
-// ==============================
+const observer = new IntersectionObserver((entries)=>{
 
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll(".nav-links a");
+entries.forEach(entry=>{
 
-window.addEventListener("scroll", () => {
+if(entry.isIntersecting){
 
-    let current = "";
+document.querySelectorAll(".counter").forEach(counter=>{
 
-    sections.forEach(section => {
+if(!counter.classList.contains("done")){
 
-        const sectionTop = section.offsetTop - 150;
+counter.classList.add("done");
 
-        if (pageYOffset >= sectionTop) {
+startCounter(counter);
 
-            current = section.getAttribute("id");
-
-        }
-
-    });
-
-    navLinks.forEach(link => {
-
-        link.classList.remove("active");
-
-        if (link.getAttribute("href") === "#" + current) {
-
-            link.classList.add("active");
-
-        }
-
-    });
+}
 
 });
+
+}
+
+});
+
+});
+
+observer.observe(document.querySelector(".hero"));
